@@ -1,6 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+from django.views.generic import ListView
 import requests
+from .models import UserManage, Resource
+
+class ResourceList(ListView):
+    model = Resource
+    template_name = 'management/resource_list.html'
+    context_object_name = 'resources'
 
 
 def index(request):
