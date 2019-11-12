@@ -29,31 +29,28 @@ class Client(models.Model):
 
     def __str__(self):
         return "{}".format(self.name)
-    
+
 class Mission(models.Model):
     class Meta:
         verbose_name = 'mission'
         verbose_name_plural = 'missions'
-    begin_at = models.DateTimeField('début de la mission',null=True)
-    end_at = models.DateTimeField('fin de la mission',null=True)
-    codeName = models.CharField('nom de code', max_length=200, blank=False, null=False, default='')
+    begin_at = models.DateField('début de la mission', null=True)
+    end_at = models.DateField('fin de la mission', null=True)
+    in_progress = models.BooleanField('en cours', default=False, null=False)
+    code_name = models.CharField('nom de code', max_length=200, blank=False, null=False, default='')
     description = models.TextField('description', blank=False, null=True)
-    client = models.ForeignKey(Client, on_delete=False, null=True)
-
+    client = models.ForeignKey(Client, on_delete=False, null=True, related_name='m_client')
+    
     def __str__(self):
-        return "{}".format(self.codeName)
-
+        return "{}".format(self.code_name)
 
 class Resource(UserManage):
     class Meta:
         verbose_name = 'ressource'
         verbose_name_plural = 'ressources'
     job = models.CharField('métier', max_length=100, blank=False, null=False, default='')
-    company = models.ForeignKey(Company, on_delete=False, null=True)
-    mission = models.ForeignKey(Mission, on_delete=False, null=True)
+    company = models.ForeignKey(Company, on_delete=False, null=True, related_name='r_companie')
+    mission = models.ForeignKey(Mission, on_delete=False, null=True, related_name='r_mission')
 
     def __str__(self):
         return "{0} {1}".format(self.firstName, self.lastName)
-
-
-

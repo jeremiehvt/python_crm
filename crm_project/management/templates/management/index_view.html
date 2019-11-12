@@ -1,12 +1,58 @@
 <!DOCTYPE html>
 <html>
- 
+ {% load static %}
+ {% load pdb %}
 <head>
 <!-- En-tête du document  -->
+ <!-- Compiled and minified CSS -->
+ <link rel="stylesheet" href="{% static 'node_modules/materialize-css/dist/css/materialize.min.css' %}">
 </head>
  
 <body>
     <h1>bonjour et bienvenue sur le crm écrit en django.</h1>
+    <div>
+        <h2>voici la liste des missions en cours</h2>
+        
+        {{ meteo }}
+        {{mission_resource}}
+        {% if mission_in_progress %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>nom de code</th>
+                        <th>description</th>
+                        <th>statut</th>
+                        <th>début</th>
+                        <th>fin</th>
+                        <th>ressources</th>
+                        <th>client</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mission in mission_in_progress %}
+                        <td>{{ mission.code_name }}</td>
+                        <td>{{ mission.description }}</td>
+                        <td>
+                            {% if mission.in_progress %}
+                                en cours
+                            {% else %}
+                                fini    
+                            {% endif %}
+                        </td>
+                        <td>{{ mission.begin_at }}</td>
+                        <td>{{ mission.end_at }}</td>   
+                        <td>{{ mission.r_mission }}</td>   
+                        <td>{{ mission.client }}</td>   
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
 </body>
- 
+
+
+ <!-- Compiled and minified JavaScript -->
+ <script src="{% static 'node_modules/materialize-css/dist/js/materialize.min.js' %}"></script>
+         
 </html>
