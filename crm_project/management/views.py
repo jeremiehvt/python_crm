@@ -17,7 +17,11 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         meteo = Meteo()
-        missions = Mission.objects.filter(in_progress=True)
+
+        # don't forget prefetch_related or selected_related name
+        # for decrease SQL request in ddb
+        missions = Mission.objects.filter(in_progress=True).prefetch_related('r_mission').order_by('-end_at')[:10]
+
         context['meteo'] = meteo.get_meteo()
         context['mission_in_progress'] = missions
         return context
@@ -27,6 +31,11 @@ class MissionList(ListView):
     model = Mission
     template_name = 'management/mission_list.html'
     context_object_name = 'missions'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['test'] = 'test'
+        return context
 
 class ClientList(ListView):
     http_method_names = ['get', 'head', 'option', 'trace']
@@ -41,4 +50,11 @@ class ResourceDetail(DetailView):
     pass
 
 class ClientDetail(DetailView):
-    pass
+    http_method_names = ['get', 'head', 'option', 'trace']
+    pk_url_kwarg = 'id'
+    model = Client
+    template_name = 'management/detail.html'
+    context_object_name = 'details'
+
+    def get_queryset(self):
+        return Client.objects.get(pk=id)
