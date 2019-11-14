@@ -40,7 +40,7 @@ class Mission(models.Model):
     code_name = models.CharField('nom de code', max_length=200, blank=False, null=False, default='')
     description = models.TextField('description', blank=False, null=True)
     # don't forget related name and related_query_name for inverse models relations and 
-    # avoid xxx_set method see in dkango docs https://docs.djangoproject.com/en/2.2/topics/db/queries/
+    # avoid xxx_set method. See in django doc https://docs.djangoproject.com/en/2.2/topics/db/queries/ for more informations
     # this comment is avilable for other foreignkey case in this script
     client = models.ForeignKey(Client, on_delete=False, null=True, related_name='m_client', related_query_name='m_clients')
 
@@ -52,7 +52,7 @@ class Resource(UserManage):
         verbose_name = 'ressource'
         verbose_name_plural = 'ressources'
     job = models.CharField('métier', max_length=100, blank=False, null=False, default='')
-    company = models.ForeignKey(Company, on_delete=False, null=True, related_name='r_companie', related_query_name='r_companies')
+    company = models.ForeignKey(Company, on_delete=False, null=True, related_name='r_company', related_query_name='r_companies')
     mission = models.ForeignKey(Mission, on_delete=False, null=True, related_name='r_mission', related_query_name='r_missions')
 
     def __str__(self):

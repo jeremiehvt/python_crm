@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <table>
+                <thead>
+                    <tr>
+                        <th>nom</th>
+                        <th>adresse</th>
+                        <th>ressources</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{company_details.name}}</td>
+                        <td>{{company_details.address}}</td>
+                        <td>
+                            <ul>
+                                <!-- reverse realtion models in template -->
+                                {% for resource in company_details.r_company.all %}
+                                    <li><a href="{% url 'crm:detail_resource' resource.id %}">{{resource}} </a></li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

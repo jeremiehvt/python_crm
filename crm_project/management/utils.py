@@ -1,10 +1,10 @@
 import requests
+from .management_settings import METEO_APP_ID
 
 class Meteo(object):
-    APPID = '43d45b6981ca6beef6f552c4ba738074'
 
-    def __init__(self, city="rennes", country_code="fr"):
-        self.payload = {'q': {city, country_code}, 'APPID': '43d45b6981ca6beef6f552c4ba738074'}
+    def __init__(self, city="rennes", country_code="fr", APPID=METEO_APP_ID):
+        self.payload = {'q': {city, country_code}, 'APPID': APPID}
 
     @property
     def payload(self):

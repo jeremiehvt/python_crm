@@ -1,1 +1,16 @@
-{{ details }}{{ test }}
+
+{% extends 'management/base.html' %}
+{% block content %}
+    {% include 'management/header.html' with meteo_data=meteo %}
+    {% if classname == 'ResourceDetail' %}
+        {% include 'management/details_view/resource_details.html' with resource_details=details %}
+    {% elif classname == 'CompanyDetail' %}
+        {% include 'management/details_view/company_details.html' with company_details=details %}
+    {% elif classname == 'ClientDetail' %}
+        {% include 'management/details_view/client_details.html' with client_details=details %}
+    {% elif classname == 'MissionDetail' %}
+        {% include 'management/details_view/mission_details.html' with mission_details=details %}
+    {% else %}
+        error unknow classname : {{classname}} for detail view
+    {% endif %}
+{% endblock %}

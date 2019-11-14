@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <table>
+                <thead>
+                    <tr>
+                        <th>nom</th>
+                        <th>adresse</th>
+                        <th>missions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{client_details.name}}</td>
+                        <td>{{client_details.address}}</td>
+                        <td>
+                            <table class="striped">
+                                <thead>
+                                    <tr>
+                                        <th>nom de code</th>
+                                        <th>descritption</th>
+                                        <th>statut</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- reverse realtion models in template -->
+                                    {% for mission in client_details.m_client.all %}
+                                        <tr>
+                                            <td>nom de code : <a href="{% url 'crm:detail_mission' mission.id %}">{{mission.code_name}}</a></td>
+                                            <td>description : {{mission.description}}</td>
+                                            <td>
+                                                {%  if mission.in_progress %}
+                                                    en cours
+                                                {% else %}
+                                                    terminé
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
