@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserManage, Resource, Client, Mission, Company
+from .models import Resource, Client, Mission, Company
 # Register your models here.
 
 admin.site.register(Resource)

@@ -1,14 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 # Create your models here.
-
-class UserManage(models.Model):
-    class Meta:
-        abstract = True
-    first_name = models.CharField('prénom', max_length=100, blank=False, null=False)
-    last_name = models.CharField('nom', max_length=100, blank=False, null=False)
-    email = models.EmailField('email', max_length=100, null=True, unique=True, blank=False)
-    address = models.CharField('adresse', max_length=100, blank=False, null=True)
 
 class Company(models.Model):
     class Meta:
@@ -47,13 +40,18 @@ class Mission(models.Model):
     def __str__(self):
         return "{}".format(self.code_name)
 
-class Resource(UserManage):
+class Resource(models.Model):
     class Meta:
         verbose_name = 'ressource'
         verbose_name_plural = 'ressources'
     job = models.CharField('métier', max_length=100, blank=False, null=False, default='')
+    address = models.CharField('adresse', max_length=100, blank=False, null=True)
+    languages = models.CharField('langues parlées', max_length=200, blank=True, null=True, default='')
+    tools = models.CharField('outils informatiques', max_length=200, blank=True, null=True, default='')
+    coments = models.TextField('commentaires', blank=True, null=True)
+    user = models.OneToOneField(get_user_model(), on_delete=True, null=False, related_name='r_user', related_query_name='r_users')
     company = models.ForeignKey(Company, on_delete=False, null=True, related_name='r_company', related_query_name='r_companies')
     mission = models.ForeignKey(Mission, on_delete=False, null=True, related_name='r_mission', related_query_name='r_missions')
 
     def __str__(self):
-        return "{0} {1}".format(self.first_name, self.last_name)
+        return "{0}".format(self.job)

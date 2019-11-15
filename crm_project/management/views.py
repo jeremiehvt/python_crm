@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
-from django.views.generic import ListView, TemplateView, DetailView
-from .models import UserManage, Resource, Mission, Client, Company
+from django.views.generic import ListView, TemplateView, DetailView, CreateView
+from .models import Resource, Mission, Client, Company
+from django.contrib.auth import get_user_model
 from .utils import Meteo
 
 class ResourceList(ListView):
@@ -108,3 +109,24 @@ class CompanyDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['classname'] = self.__class__.__name__
         return context
+
+class ResourceCreate(CreateView):
+    template_name_suffix = '_form_view'
+    template_name = 'management/ressource_create_form_view.html'
+    model = Resource
+    fields = [
+        'job',
+        'address',
+        'languages',
+        'tools',
+        'coments',
+        'user',
+        'company',
+        'mission'
+    ]
+
+class UserCreate(CreateView):
+    template_name_suffix = '_form_view'
+    template_name = 'management/user_create_form_view.html'
+    model = get_user_model()
+    fields = '__all__'

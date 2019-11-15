@@ -1,5 +1,6 @@
 env/
-crm_project/management/management_settings
-crm_project/management/__pycache__
-crm_project/management/migrations
-crm_project/crm/__pycache__
+crm_project/management/management_settings.py
+crm_project/management/__pycache__/
+crm_project/management/migrations/
+crm_project/management/static/node_modules/
+crm_project/crm/__pycache__/

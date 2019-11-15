@@ -1,9 +1,20 @@
 from django.urls import path, include
 from . import views
-from .views import ResourceList, IndexView, MissionList, CompanyList, ClientDetail, ClientList, CompanyDetail, ResourceDetail, MissionDetail
+from .views import \
+    ResourceList, \
+    IndexView, \
+    MissionList, \
+    CompanyList, \
+    ClientDetail, \
+    ClientList, \
+    CompanyDetail, \
+    ResourceDetail, \
+    MissionDetail, \
+    ResourceCreate, \
+    UserCreate
 
 # setting app name to use namsepace
-app_name='crm'
+app_name = 'crm'
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -16,5 +27,7 @@ urlpatterns = [
         path('company/', CompanyDetail.as_view(), name='detail_company'),
         path('mission/', MissionDetail.as_view(), name='detail_mission'),
         path('ressource/', ResourceDetail.as_view(), name='detail_resource'),
-    ]))
+    ])),
+    path('create_resource/', ResourceCreate.as_view(), name='create_resource'),
+    path('create_user/', UserCreate.as_view(), name='create_user'),
 ]
