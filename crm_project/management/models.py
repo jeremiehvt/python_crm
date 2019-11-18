@@ -34,7 +34,7 @@ class Mission(models.Model):
     description = models.TextField('description', blank=False, null=True)
     # don't forget related name and related_query_name for inverse models relations and 
     # avoid xxx_set method. See in django doc https://docs.djangoproject.com/en/2.2/topics/db/queries/ for more informations
-    # this comment is avilable for other foreignkey case in this script
+    # this comment is available for other foreignkey case in this script
     client = models.ForeignKey(Client, on_delete=False, null=True, related_name='m_client', related_query_name='m_clients')
 
     def __str__(self):

@@ -1,0 +1,85 @@
+{% extends 'management/base.html' %}
+{% block content %}
+{% include 'management/header.html' with meteo_data=meteo %}
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <!-- <form method="post">{% csrf_token %}
+                <div>
+                    {{ form.first_name.errors }}
+                    <label for="{{form.first_name.id_for_label}}">
+                        {{form.first_name.label}}
+                        <input type="text" id="{{form.first_name.id_for_label}}" name="{{form.first_name.id_for_label}}">
+                    </label>
+                </div>
+                <div>
+                    {{ form.last_name.errors }}
+                    <label for="{{form.first_name.id_for_label}}">
+                        {{form.last_name.label}}
+                        <input type="text" id="{{form.last_name.id_for_label}}" name="{{form.last_name.id_for_label}}">   
+                    </label>
+                </div>
+                <div>
+                    {{ form.username.errors }}
+                    <label for="{{form.username.id_for_label}}">
+                        {{form.username.label}}
+                        <input type="text" id="{{form.username.id_for_label}}" name="{{form.username.id_for_label}}">   
+                    </label>
+                </div>
+                <div>
+                    {{ form.email.errors }}
+                    <label for="{{form.email.id_for_label}}">
+                        {{form.email.label}}
+                        <input type="text" id="{{form.email.id_for_label}}" name="{{form.email.id_for_label}}">   
+                    </label>
+                </div>
+                
+                <div>
+                    <label for="{{form.password.label.auto_id}}">
+                        {{form.password.label}}
+                        <input type="text" id="{{form.password.id_for_label}}" name="{{form.password.id_for_label}}">   
+                    </label>
+                </div>
+                <div>
+                    {% for group in Groups %}
+                        {% for field in form.visible_fields %}
+                            {{field.label}}
+                        {% endfor %}
+                    {% endfor %}
+                </div> 
+                <div>
+                    {{ form.is_active.errors }}
+                    <label for="{{form.is_active.id_for_label}}">
+                        {{form.is_active.label}}
+                        <input type="checkbox" id="{{form.is_active.id_for_label}}" name="{{form.is_active.id_for_label}}">
+                        <span></span>
+                    </label>
+                </div>   
+                <div>
+                    {{ form.is_staff.errors }}
+                    <label for="{{form.is_staff.id_for_label}}">
+                        {{form.is_staff.label}}
+                        <input type="checkbox" id="{{form.is_staff.id_for_label}}" name="{{form.is_staff.id_for_label}}">
+                        <span></span>
+                    </label>
+                </div>   
+                <input type="submit" value="Save">
+            </form> -->
+            <label for="{{form.groups.id_for_label}}">
+                <select name="{{form.groups.id_for_label}}" id="{{form.groups.id_for_label}}">
+                    {% for group in form.groups_set.all %}
+                        {{ group.name }}
+                    {% endfor %}
+                </select>
+            </label>
+            <label for="{{form.user_permissions.id_for_label}}">
+                <select name="{{form.user_permissions.id_for_label}}" id="{{form.user_permissions.id_for_label}}">
+                    {% for perm in form.user_permissions_set.all %}
+                        {{ perm.name }}
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+    </div>
+</div>
+{% endblock %}

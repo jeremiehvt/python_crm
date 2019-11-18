@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.views.generic import ListView, TemplateView, DetailView, CreateView
 from .models import Resource, Mission, Client, Company
 from django.contrib.auth import get_user_model
+from django.contrib import messages
+from django.urls import reverse_lazy
 from .utils import Meteo
 
 class ResourceList(ListView):
@@ -112,7 +114,7 @@ class CompanyDetail(DetailView):
 
 class ResourceCreate(CreateView):
     template_name_suffix = '_form_view'
-    template_name = 'management/ressource_create_form_view.html'
+    template_name = 'management/forms/ressource_create_form_view.html'
     model = Resource
     fields = [
         'job',
@@ -125,8 +127,22 @@ class ResourceCreate(CreateView):
         'mission'
     ]
 
+    def get_success_url(self):
+        #add flash msg tyo session
+        messages.add_message(self.request, messages.INFO, 'ressource created')
+
+        #use reverse_lazy to resolve url before loading url conf
+        return reverse_lazy('crm:index')
+
 class UserCreate(CreateView):
     template_name_suffix = '_form_view'
-    template_name = 'management/user_create_form_view.html'
+    template_name = 'management/forms/user_create_form_view.html'
     model = get_user_model()
-    fields = '__all__'
+    fields = ['is_superuser', 'first_name', 'last_name', 'username', 'email', 'password', 'is_staff', 'is_active', 'groups', 'user_permissions']
+
+    def get_success_url(self):
+        #add flash msg tyo session
+        messages.add_message(self.request, messages.INFO, 'user created')
+
+        #use reverse_lazy to resolve url before loading url conf
+        return reverse_lazy('crm:index')
