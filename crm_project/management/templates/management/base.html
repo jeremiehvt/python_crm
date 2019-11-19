@@ -14,5 +14,13 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="{% static 'node_modules/materialize-css/dist/js/materialize.js' %}"></script>
-        
+    <script type="text/javascript">
+        // must implements this script for select wrapper element
+        // i voluntary omit the options parameter
+        // for more informations see https://materializecss.com/select.html
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
+    </script>
 </html>

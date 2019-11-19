@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col s12">
-            <!-- <form method="post">{% csrf_token %}
+            <form method="post">{% csrf_token %}
                 <div>
                     {{ form.first_name.errors }}
                     <label for="{{form.first_name.id_for_label}}">
@@ -23,7 +23,7 @@
                     {{ form.username.errors }}
                     <label for="{{form.username.id_for_label}}">
                         {{form.username.label}}
-                        <input type="text" id="{{form.username.id_for_label}}" name="{{form.username.id_for_label}}">   
+                        <input type="text" id="{{form.username.id_for_label}}" name="{{form.username.id_for_label}}" value="{{form.username.value}}">   
                     </label>
                 </div>
                 <div>
@@ -41,11 +41,27 @@
                     </label>
                 </div>
                 <div>
-                    {% for group in Groups %}
-                        {% for field in form.visible_fields %}
-                            {{field.label}}
-                        {% endfor %}
-                    {% endfor %}
+                    {% if form.fields.user_permissions.choices %}    
+                        {{form.user_permissions.errors}}
+                        <label for="form.user_permissions.label_tag">{{form.user_permissions.label}}</label>
+                        <select multiple>
+                            {% for key, value in form.fields.user_permissions.choices %}
+                                <option value="{{value}}">{{key}} : {{value}}</option>
+                            {% endfor %}
+                        </select>
+                    {% endif %}
+                </div>
+                <div>
+                    {% if form.fields.groups.choices %}
+                        {{form.groups.errors}}
+                        <label for="form.groups.label_tag">{{form.fields.groups.label}}</label>
+                        <select name="form.groups.label_tag" id="form.groups.label_tag">
+                            <option value="">pas de permission</option>
+                            {% for key, value in form.fields.groups.choices %}
+                                <option value="{{value}}">{{value}}</option>
+                            {% endfor %}
+                        </select>
+                    {% endif %}
                 </div> 
                 <div>
                     {{ form.is_active.errors }}
@@ -64,21 +80,7 @@
                     </label>
                 </div>   
                 <input type="submit" value="Save">
-            </form> -->
-            <label for="{{form.groups.id_for_label}}">
-                <select name="{{form.groups.id_for_label}}" id="{{form.groups.id_for_label}}">
-                    {% for group in form.groups_set.all %}
-                        {{ group.name }}
-                    {% endfor %}
-                </select>
-            </label>
-            <label for="{{form.user_permissions.id_for_label}}">
-                <select name="{{form.user_permissions.id_for_label}}" id="{{form.user_permissions.id_for_label}}">
-                    {% for perm in form.user_permissions_set.all %}
-                        {{ perm.name }}
-                    {% endfor %}
-                </select>
-            </label>
+            </form>
         </div>
     </div>
 </div>

@@ -116,6 +116,7 @@ class ResourceCreate(CreateView):
     template_name_suffix = '_form_view'
     template_name = 'management/forms/ressource_create_form_view.html'
     model = Resource
+    http_method_names = ['get', 'put', 'head', 'option', 'trace']
     fields = [
         'job',
         'address',
@@ -135,6 +136,7 @@ class ResourceCreate(CreateView):
         return reverse_lazy('crm:index')
 
 class UserCreate(CreateView):
+    http_method_names = ['get', 'put', 'head', 'option', 'trace']
     template_name_suffix = '_form_view'
     template_name = 'management/forms/user_create_form_view.html'
     model = get_user_model()
@@ -146,3 +148,7 @@ class UserCreate(CreateView):
 
         #use reverse_lazy to resolve url before loading url conf
         return reverse_lazy('crm:index')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.initial['username'] = 'jeremiehvt'
