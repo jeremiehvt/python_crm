@@ -112,6 +112,7 @@ class CompanyDetail(DetailView):
         context['classname'] = self.__class__.__name__
         return context
 
+# todo delete this part and create formset to create one ressource
 class ResourceCreate(CreateView):
     template_name_suffix = '_form_view'
     template_name = 'management/forms/ressource_create_form_view.html'
